@@ -44,6 +44,39 @@ function getEdgeAnchor(node: CanvasNode, side: string | undefined): { x: number;
   }
 }
 
+// 接続面が未指定の場合、相手ノードの方向から自動判定
+function inferEdgeSide(node: CanvasNode, other: CanvasNode): string {
+  const cx = node.x + node.width / 2;
+  const cy = node.y + node.height / 2;
+  const ox = other.x + other.width / 2;
+  const oy = other.y + other.height / 2;
+
+  const dx = ox - cx;
+  const dy = oy - cy;
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    return dx >= 0 ? "right" : "left";
+  }
+
+  return dy >= 0 ? "bottom" : "top";
+}
+
+// 接続面から、線がノードの外へ伸びる方向を取得
+function getEdgeDirection(side: string): { x: number; y: number } {
+  switch (side) {
+    case "top":
+      return { x: 0, y: -1 };
+    case "bottom":
+      return { x: 0, y: 1 };
+    case "left":
+      return { x: -1, y: 0 };
+    case "right":
+      return { x: 1, y: 0 };
+    default:
+      return { x: 0, y: 0 };
+  }
+}
+
 const headerRegex = /^h[1-6]$/;
 
 function findPage(fileSlug: FullSlug, allFiles: QuartzPluginData[]): QuartzPluginData | undefined {
@@ -315,8 +348,11 @@ function renderEdge(edge: CanvasEdge, nodeMap: Map<string, CanvasNode>): unknown
   const toNode = nodeMap.get(edge.toNode);
   if (!fromNode || !toNode) return null;
 
-  const from = getEdgeAnchor(fromNode, edge.fromSide);
-  const to = getEdgeAnchor(toNode, edge.toSide);
+  const fromSide = edge.fromSide ?? inferEdgeSide(fromNode, toNode);
+  const toSide = edge.toSide ?? inferEdgeSide(toNode, fromNode);
+  
+  const from = getEdgeAnchor(fromNode, fromSide);
+  const to = getEdgeAnchor(toNode, toSide);
 
   const color = resolveColor(edge.color);
   const hasFromArrow = edge.fromEnd === "arrow";
@@ -327,9 +363,27 @@ function renderEdge(edge: CanvasEdge, nodeMap: Map<string, CanvasNode>): unknown
 
   const dx = to.x - from.x;
   const dy = to.y - from.y;
-  const midX = from.x + dx / 2;
-  const midY = from.y + dy / 2;
-  const pathD = `M ${from.x} ${from.y} Q ${midX} ${from.y}, ${midX} ${midY} T ${to.x} ${to.y}`;
+  const distance = Math.hypot(dx, dy);
+  
+  // 距離に応じて曲線のふくらみを調整
+  const controlDistance = Math.max(40, Math.min(200, distance * 0.35));
+  
+  const fromDir = getEdgeDirection(fromSide);
+  const toDir = getEdgeDirection(toSide);
+  
+  const c1x = from.x + fromDir.x * controlDistance;
+  const c1y = from.y + fromDir.y * controlDistance;
+  const c2x = to.x + toDir.x * controlDistance;
+  const c2y = to.y + toDir.y * controlDistance;
+  
+  // 三次ベジェ曲線
+  const pathD =
+    `M ${from.x} ${from.y} ` +
+    `C ${c1x} ${c1y}, ${c2x} ${c2y}, ${to.x} ${to.y}`;
+  
+  // ラベルを曲線中央付近に配置
+  const midX = (from.x + 3 * c1x + 3 * c2x + to.x) / 8;
+  const midY = (from.y + 3 * c1y + 3 * c2y + to.y) / 8;
 
   return (
     <g class="canvas-edge" data-edge-id={edge.id}>
