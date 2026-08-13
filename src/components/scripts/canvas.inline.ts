@@ -57,7 +57,30 @@ function initCanvas() {
     };
 
     const cleanupFns: Array<() => void> = [];
-
+    // モバイルや画面幅変更時に、実際の横幅で初期ズームを再計算
+    let lastContainerWidth = container.getBoundingClientRect().width;
+    
+    const resizeObserver = new ResizeObserver(() => {
+      const width = container.getBoundingClientRect().width;
+    
+      if (width <= 0) return;
+      if (Math.abs(width - lastContainerWidth) < 1) return;
+    
+      lastContainerWidth = width;
+    
+      centerViewport();
+    
+      defaultZoom = zoom;
+      defaultPanX = panX;
+      defaultPanY = panY;
+    
+      updateResetButton();
+    });
+    
+    resizeObserver.observe(container);
+    
+    cleanupFns.push(() => resizeObserver.disconnect());
+    
     if (enableInteraction) {
       const onWheel = (e: WheelEvent) => {
         // If the wheel target is inside a scrollable text node, let it scroll naturally
