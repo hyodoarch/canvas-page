@@ -405,13 +405,13 @@ function renderEdge(edge: CanvasEdge, nodeMap: Map<string, CanvasNode>): unknown
           <marker
             id={markerStartId}
             viewBox="0 0 10 10"
-            refX="1"
+            refX="9"
             refY="5"
             markerWidth="6"
             markerHeight="6"
             orient="auto-start-reverse"
           >
-            <path d="M 10 0 L 0 5 L 10 10 z" fill={color ?? "var(--darkgray)"} />
+            <path d="M 0 0 L 10 5 L 0 10 z" fill={color ?? "var(--darkgray)"} />
           </marker>
         )}
       </defs>
