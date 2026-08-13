@@ -31,11 +31,11 @@ function initCanvas() {
 
       const scaleX = containerRect.width / vw;
   //  const scaleY = containerRect.height / vh; ≫ 元の使用は縦横両方が収まる倍率を採用
-      zoom = Math.min(scaleX, /*scaleY,*/ 1) * 0.9;
+      zoom = Math.min(scaleX, /*scaleY, ≫ Y方向の高さは無視 */ 1) * 0.9;
       zoom = Math.max(minZoom, Math.min(maxZoom, zoom));
 
       panX = (containerRect.width - vw * zoom) / 2;
-      panY = (containerRect.height - vh * zoom) / 2;
+      panY = 0; /* (containerRect.height - vh * zoom) / 2; ≫ Y方向のパンは無視 */
       applyTransform();
     };
 
@@ -88,7 +88,7 @@ function initCanvas() {
         zoom = Math.max(minZoom, Math.min(maxZoom, zoom * delta));
 
         panX = mouseX - (mouseX - panX) * (zoom / prevZoom);
-        panY = mouseY - (mouseY - panY) * (zoom / prevZoom);
+         = mouseY - (mouseY - ) * (zoom / prevZoom);
         applyTransform();
         updateResetButton();
       };
