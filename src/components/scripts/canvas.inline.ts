@@ -57,6 +57,28 @@ function initCanvas() {
     };
 
     const cleanupFns: Array<() => void> = [];
+      // モバイル等でレイアウト確定後に、横幅基準ズームを再計算する
+      const initialResizeObserver = new ResizeObserver(() => {
+        const width = container.getBoundingClientRect().width;
+      
+        // まだレイアウトされていなければ次の通知を待つ
+        if (width <= 0) return;
+      
+        centerViewport();
+      
+        defaultZoom = zoom;
+        defaultPanX = panX;
+        defaultPanY = panY;
+      
+        updateResetButton();
+      
+        // 初期レイアウト確定時の1回だけでよい
+        initialResizeObserver.disconnect();
+      });
+      
+      initialResizeObserver.observe(container);
+      
+      cleanupFns.push(() => initialResizeObserver.disconnect());
 
     if (enableInteraction) {
       const onWheel = (e: WheelEvent) => {
