@@ -65,6 +65,10 @@
   overflow-y: auto;
   flex: 1;
   min-height: 0;
+  // Canvas内では本文用の段落余白を使わない
+  p {
+    margin: 0;
+  }
 }
 
 .canvas-node-text {
