@@ -518,56 +518,6 @@
 // to 0 when there is no explicit height ancestor (e.g. inside a blockquote).
 // Provide an explicit min-height so the JS centerViewport() can calculate
 // proper zoom/pan values, and the canvas content is visible.
-// -----------------------------------------------------------------------------
-// Embedded Canvas — blockquote解除・本文幅いっぱいに表示
-// -----------------------------------------------------------------------------
-
-.page > #quartz-body > .center
-> article:has(
-  > .markdown-preview-view
-  > blockquote.transclude[data-url$=".canvas"]
-) {
-  width: 100%;
-  max-width: none;
-  margin-left: 0;
-  margin-right: 0;
-
-  > .markdown-preview-view {
-    width: 100%;
-    max-width: none;
-
-    // Canvas以外の通常本文は従来どおり38ic
-    > :not(blockquote.transclude[data-url$=".canvas"]) {
-      width: min(100%, 38ic);
-      max-width: 38ic;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    // Canvas埋め込みだけ.center幅いっぱい
-    > blockquote.transclude[data-url$=".canvas"] {
-      width: 100%;
-      max-width: none;
-      box-sizing: border-box;
-
-      margin-left: 0;
-      margin-right: 0;
-      padding-left: 0;
-
-      // blockquoteの縦線を消す
-      border-left: none;
-      color: var(--dark);
-
-      > .canvas-page {
-        width: 100%;
-        max-width: none;
-        margin-left: 0;
-        margin-right: 0;
-      }
-    }
-  }
-}
-
 .transclude {
   .canvas-page {
     height: auto;
