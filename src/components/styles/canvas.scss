@@ -74,6 +74,10 @@
 .canvas-node-text {
   .canvas-node-content {
     white-space: pre-wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 }
 
