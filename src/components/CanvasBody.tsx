@@ -366,7 +366,7 @@ function renderEdge(edge: CanvasEdge, nodeMap: Map<string, CanvasNode>): unknown
   const distance = Math.hypot(dx, dy);
   
   // 距離に応じて曲線のふくらみを調整
-  const controlDistance = Math.max(40, Math.min(200, distance * 0.35));
+  const controlDistance = Math.max(40, Math.min(200, distance * 0.45));
   
   const fromDir = getEdgeDirection(fromSide);
   const toDir = getEdgeDirection(toSide);
