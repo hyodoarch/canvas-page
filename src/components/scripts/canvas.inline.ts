@@ -280,47 +280,32 @@ function initCanvas() {
     }
 
     // Fullscreen toggle for embedded canvases
-    const fullscreenBtn = container.querySelector(
+    // 埋め込みCanvasでは、右上アイコンを元Canvasページへのリンクとして使用
+    const sourceBtn = container.querySelector(
       ".canvas-fullscreen-toggle",
     ) as HTMLButtonElement | null;
-    if (fullscreenBtn) {
-      const enterIcon = fullscreenBtn.querySelector(
-        ".canvas-fullscreen-enter",
-      ) as HTMLElement | null;
-      const exitIcon = fullscreenBtn.querySelector(".canvas-fullscreen-exit") as HTMLElement | null;
-
-      const updateFullscreenIcons = () => {
-        const isFs = document.fullscreenElement === container;
-        if (enterIcon) enterIcon.style.display = isFs ? "none" : "";
-        if (exitIcon) exitIcon.style.display = isFs ? "" : "none";
-      };
-
-      const onFullscreenToggle = () => {
-        if (document.fullscreenElement === container) {
-          document.exitFullscreen();
-        } else {
-          container.requestFullscreen();
-        }
-      };
-
-      const onFullscreenChange = () => {
-        updateFullscreenIcons();
-        // Re-center after entering/exiting fullscreen
-        requestAnimationFrame(() => {
-          centerViewport();
-          defaultZoom = zoom;
-          defaultPanX = panX;
-          defaultPanY = panY;
-          updateResetButton();
+    
+    if (sourceBtn) {
+      const transclude = container.closest("blockquote.transclude");
+      const sourceLink = transclude?.querySelector(
+        "a.transclude-src",
+      ) as HTMLAnchorElement | null;
+    
+      if (sourceLink) {
+        const onOpenSource = () => {
+          window.location.href = sourceLink.href;
+        };
+    
+        sourceBtn.setAttribute("aria-label", "Open canvas page");
+        sourceBtn.addEventListener("click", onOpenSource);
+    
+        cleanupFns.push(() => {
+          sourceBtn.removeEventListener("click", onOpenSource);
         });
-      };
-
-      fullscreenBtn.addEventListener("click", onFullscreenToggle);
-      document.addEventListener("fullscreenchange", onFullscreenChange);
-      cleanupFns.push(() => {
-        fullscreenBtn.removeEventListener("click", onFullscreenToggle);
-        document.removeEventListener("fullscreenchange", onFullscreenChange);
-      });
+      } else {
+        // Canvas個別ページでは、このアイコンは表示しない
+        sourceBtn.style.display = "none";
+      }
     }
 
     // Handle iframe load errors (CSP/X-Frame-Options blocks)
