@@ -31,7 +31,7 @@ function initCanvas() {
 
       const scaleX = containerRect.width / vw;
   //  const scaleY = containerRect.height / vh; ≫ 元の使用は縦横両方が収まる倍率を採用
-      zoom = Math.min(scaleX, scaleY, 1) * 0.9;
+      zoom = Math.min(scaleX, /*scaleY,*/ 1) * 0.9;
       zoom = Math.max(minZoom, Math.min(maxZoom, zoom));
 
       panX = (containerRect.width - vw * zoom) / 2;
