@@ -88,7 +88,7 @@ function initCanvas() {
         zoom = Math.max(minZoom, Math.min(maxZoom, zoom * delta));
 
         panX = mouseX - (mouseX - panX) * (zoom / prevZoom);
-         = mouseY - (mouseY - panY) * (zoom / prevZoom);
+        panY = mouseY - (mouseY - panY) * (zoom / prevZoom);
         applyTransform();
         updateResetButton();
       };
