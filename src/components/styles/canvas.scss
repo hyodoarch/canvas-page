@@ -13,8 +13,11 @@
   border: none;
   border-radius: 0;
   background-color: var(--light);
-  background-image: radial-gradient(circle, var(--lightgray) 1px, transparent 1px);
-  background-size: 20px 20px;
+  
+  // グリッドの点を非表示
+  // background-image: radial-gradient(circle, var(--lightgray) 1px, transparent 1px);
+  // background-size: 20px 20px;
+  
   cursor: grab;
   user-select: none;
   touch-action: none;
