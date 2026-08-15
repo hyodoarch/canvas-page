@@ -218,6 +218,7 @@ function renderNode(
   visited: Set<string>,
 ): unknown {
   const color = resolveColor(node.color);
+  const borderStyle = node.styleAttributes?.border;
   const baseStyle: Record<string, string> = {
     left: `${node.x}px`,
     top: `${node.y}px`,
@@ -236,7 +237,12 @@ function renderNode(
     case "text": {
       const html = renderedTexts[node.id];
       return (
-        <div class="canvas-node canvas-node-text" data-node-id={node.id} style={styleStr}>
+        <div
+          class="canvas-node canvas-node-text"
+          data-node-id={node.id}
+          data-border-style={borderStyle}
+          style={styleStr}
+        >
           {html ? (
             <div class="canvas-node-content" dangerouslySetInnerHTML={{ __html: html }} />
           ) : (
@@ -253,11 +259,7 @@ function renderNode(
 
       if (isImage) {
         return (
-          <div
-            class="canvas-node canvas-node-file canvas-node-image"
-            data-node-id={node.id}
-            style={styleStr}
-          >
+          <div class="canvas-node canvas-node-file" data-node-id={node.id} style={styleStr}>
             <img src={resolveRelative(slug, fileSlug)} alt={filename} loading="lazy" />
           </div>
         );
