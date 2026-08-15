@@ -132,10 +132,10 @@ export interface CanvasPageOptions {
 
 /** Preset color map: preset number → CSS color value */
 export const CANVAS_PRESET_COLORS: Record<string, string> = {
-  "1": "#fb464c",
-  "2": "#e9973f",
-  "3": "#e0de71",
-  "4": "#44cf6e",
-  "5": "#53dfdd",
-  "6": "#a882ff",
+  "1": "#d04255",
+  "2": "#d5763f",
+  "3": "#e5b567",
+  "4": "#a8c373",
+  "5": "#73bbb2",
+  "6": "#9e86c8",
 };
