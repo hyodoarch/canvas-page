@@ -284,10 +284,10 @@
 
   .canvas-group-label {
     position: absolute;
-    top: -10px;
+    top: 6px;
     left: 16px;
     padding: 0 8px;
-    background: var(--light);
+    background: transparent;
     // グループ名を強調
     font-size: 1.575rem;
     font-weight: 700;
