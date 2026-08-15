@@ -282,6 +282,21 @@
   }
 }
 
+// Advanced Canvas: border styles
+.canvas-node[data-border-style="dashed"] {
+  border-style: dashed;
+}
+
+.canvas-node[data-border-style="dotted"] {
+  border-style: dotted;
+}
+
+.canvas-node[data-border-style="invisible"] {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
 .canvas-edges {
   position: absolute;
   top: 0;
