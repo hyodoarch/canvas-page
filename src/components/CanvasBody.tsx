@@ -259,7 +259,12 @@ function renderNode(
 
       if (isImage) {
         return (
-          <div class="canvas-node canvas-node-file" data-node-id={node.id} style={styleStr}>
+          <div
+            class="canvas-node canvas-node-file"
+            data-node-id={node.id}
+            data-border-style={borderStyle}
+            style={styleStr}
+          >
             <img src={resolveRelative(slug, fileSlug)} alt={filename} loading="lazy" />
           </div>
         );
@@ -268,7 +273,12 @@ function renderNode(
       const embedded = resolveEmbeddedHtml(fileSlug, slug, allFiles, node.subpath, visited);
 
       return (
-        <div class="canvas-node canvas-node-file" data-node-id={node.id} style={styleStr}>
+        <div
+          class="canvas-node canvas-node-file"
+          data-node-id={node.id}
+          data-border-style={borderStyle}
+          style={styleStr}
+        >
           <div class="canvas-file-label">
             <a
               href={resolveRelative(slug, fileSlug)}
@@ -304,7 +314,12 @@ function renderNode(
         hostname = node.url;
       }
       return (
-        <div class="canvas-node canvas-node-link" data-node-id={node.id} style={styleStr}>
+        <div
+          class="canvas-node canvas-node-link"
+          data-node-id={node.id}
+          data-border-style={borderStyle}
+          style={styleStr}
+        >
           <div class="canvas-link-label">
             <a
               href={node.url}
@@ -335,7 +350,12 @@ function renderNode(
 
     case "group":
       return (
-        <div class="canvas-node canvas-node-group" data-node-id={node.id} style={styleStr}>
+        <div
+          class="canvas-node canvas-node-group"
+          data-node-id={node.id}
+          data-border-style={borderStyle}
+          style={styleStr}
+        >
           {node.label && <div class="canvas-group-label">{node.label}</div>}
         </div>
       );
