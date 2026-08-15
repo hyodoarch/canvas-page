@@ -283,6 +283,10 @@
 }
 
 // Advanced Canvas: border styles
+.canvas-node[data-border-style="solid"] {
+  border-style: solid;
+}
+
 .canvas-node[data-border-style="dashed"] {
   border-style: dashed;
 }
