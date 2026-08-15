@@ -274,7 +274,7 @@
 .canvas-node-group {
   background: color-mix(
     in srgb,
-    var(--canvas-node-color, var(--light)) 7%,
+    var(--canvas-node-color, #b5b5b5) 7%,
     transparent
   );
   border-style: dashed;
