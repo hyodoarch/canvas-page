@@ -39,6 +39,14 @@ export type CanvasBackgroundStyle = "cover" | "ratio" | "repeat";
 // Node Types
 // ============================================================================
 
+/** Border style used by Advanced Canvas */
+export type CanvasBorderStyle = "solid" | "dashed" | "dotted" | "invisible";
+
+/** Advanced Canvas style attributes for nodes */
+export interface CanvasNodeStyleAttributes {
+  border?: CanvasBorderStyle;
+}
+
 /** Common properties shared by all node types */
 interface CanvasNodeBase {
   id: string;
@@ -47,6 +55,7 @@ interface CanvasNodeBase {
   width: number;
   height: number;
   color?: CanvasColor;
+  styleAttributes?: CanvasNodeStyleAttributes;
 }
 
 /** Text node — contains Markdown text */
