@@ -296,8 +296,12 @@
 }
 
 .canvas-node[data-border-style="invisible"] {
-  border: none;
-  background: transparent;
+  border-color: transparent;
+  background: color-mix(
+    in srgb,
+    var(--canvas-node-color, var(--light)) 7%,
+    var(--light)
+  );
   box-shadow: none;
 }
 
