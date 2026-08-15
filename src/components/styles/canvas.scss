@@ -192,6 +192,11 @@
   }
 }
 
+.canvas-node-image > img {
+  margin: 0;
+  display: block;
+}
+
 .canvas-node-link {
   overflow: visible;
 
