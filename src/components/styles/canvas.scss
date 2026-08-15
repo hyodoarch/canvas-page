@@ -44,7 +44,11 @@
   position: absolute;
   border: 2px solid var(--canvas-node-color, var(--lightgray));
   border-radius: 6px;
-  background: var(--light);
+  background: color-mix(
+    in srgb,
+    var(--canvas-node-color, var(--light)) 7%,
+    var(--light)
+  );  
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.15s ease;
@@ -297,11 +301,7 @@
 
 .canvas-node[data-border-style="invisible"] {
   border-color: transparent;
-  background: color-mix(
-    in srgb,
-    var(--canvas-node-color, var(--light)) 7%,
-    var(--light)
-  );
+  background: transparent;
   box-shadow: none;
 }
 
