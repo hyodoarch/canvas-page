@@ -448,14 +448,21 @@ function renderEdge(edge: CanvasEdge, nodeMap: Map<string, CanvasNode>): unknown
       {edge.label && (
         <g class="canvas-edge-label-group">
           <rect
-            x={midX - edge.label.length * 3.5 - 4}
-            y={midY - 20}
-            width={edge.label.length * 7 + 8}
-            height={16}
-            rx="3"
+            x={midX}
+            y={midY}
+            width="0"
+            height="0"
+            rx="6"
+            ry="6"
             class="canvas-edge-label-bg"
           />
-          <text x={midX} y={midY} class="canvas-edge-label" text-anchor="middle" dy="-8">
+          <text
+            x={midX}
+            y={midY}
+            class="canvas-edge-label"
+            text-anchor="middle"
+            dominant-baseline="middle"
+          >
             {edge.label}
           </text>
         </g>
