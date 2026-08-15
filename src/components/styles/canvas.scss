@@ -272,7 +272,11 @@
 }
 
 .canvas-node-group {
-  background: transparent;
+  background: color-mix(
+    in srgb,
+    var(--canvas-node-color, var(--light)) 7%,
+    var(--light)
+  );
   border-style: dashed;
   border-color: var(--canvas-node-color, var(--gray));
   border-radius: 12px;
