@@ -260,7 +260,7 @@ function renderNode(
       if (isImage) {
         return (
           <div
-            class="canvas-node canvas-node-file"
+            class="canvas-node canvas-node-file canvas-node-image"
             data-node-id={node.id}
             data-border-style={borderStyle}
             style={styleStr}
