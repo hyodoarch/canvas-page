@@ -92,6 +92,17 @@ export type CanvasNode = CanvasTextNode | CanvasFileNode | CanvasLinkNode | Canv
 // Edge Types
 // ============================================================================
 
+/** Path style used by Advanced Canvas */
+export type CanvasEdgePathStyle =
+  | "dotted"
+  | "short-dashed"
+  | "long-dashed";
+
+/** Advanced Canvas style attributes for edges */
+export interface CanvasEdgeStyleAttributes {
+  path?: CanvasEdgePathStyle | null;
+}
+
 /** A connection between two nodes */
 export interface CanvasEdge {
   id: string;
@@ -103,6 +114,7 @@ export interface CanvasEdge {
   toEnd?: CanvasEnd;
   color?: CanvasColor;
   label?: string;
+  styleAttributes?: CanvasEdgeStyleAttributes;
 }
 
 // ============================================================================
