@@ -333,6 +333,18 @@
   }
 }
 
+.canvas-edge > path[data-path="dotted"] {
+  stroke-dasharray: 3px;
+}
+
+.canvas-edge > path[data-path="short-dashed"] {
+  stroke-dasharray: 9px;
+}
+
+.canvas-edge > path[data-path="long-dashed"] {
+  stroke-dasharray: 18px;
+}
+
 .canvas-edge-label-bg {
   fill: var(--light);
   fill-opacity: 1;
