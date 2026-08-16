@@ -334,13 +334,14 @@
 }
 
 .canvas-edge-label-bg {
-  fill: var(--light);
-  fill-opacity: 0.85;
+  fill: var(--highlight);
+  stroke: var(--secondary);
+  stroke-width: 1px;
 }
 
 .canvas-edge-label {
   font-size: 1rem;
-  fill: var(--darkgray);
+  fill: var(--secondary);
   pointer-events: none;
 }
 
