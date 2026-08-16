@@ -377,6 +377,7 @@ function renderEdge(edge: CanvasEdge, nodeMap: Map<string, CanvasNode>): unknown
   const to = getEdgeAnchor(toNode, toSide);
 
   const color = resolveColor(edge.color);
+  const pathStyle = edge.styleAttributes?.path ?? undefined;
   const hasFromArrow = edge.fromEnd === "arrow";
   const hasToArrow = (edge.toEnd ?? "arrow") === "arrow";
 
@@ -442,6 +443,7 @@ function renderEdge(edge: CanvasEdge, nodeMap: Map<string, CanvasNode>): unknown
         fill="none"
         stroke={color ?? "var(--darkgray)"}
         stroke-width="2"
+        data-path={pathStyle}
         marker-end={hasToArrow ? `url(#${markerId})` : undefined}
         marker-start={hasFromArrow ? `url(#${markerStartId})` : undefined}
       />
