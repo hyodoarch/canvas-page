@@ -9,6 +9,40 @@ function initCanvas() {
     const viewport = container.querySelector(".canvas-viewport") as HTMLElement | null;
     if (!viewport) continue;
 
+    const updateEdgeLabelBackgrounds = () => {
+      const groups = container.querySelectorAll(
+        ".canvas-edge-label-group",
+      ) as NodeListOf<SVGGElement>;
+    
+      for (const group of Array.from(groups)) {
+        const text = group.querySelector(
+          ".canvas-edge-label",
+        ) as SVGTextElement | null;
+    
+        const rect = group.querySelector(
+          ".canvas-edge-label-bg",
+        ) as SVGRectElement | null;
+    
+        if (!text || !rect) continue;
+    
+        const box = text.getBBox();
+    
+        const paddingX = 7;
+        const paddingY = 3;
+    
+        rect.setAttribute("x", String(box.x - paddingX));
+        rect.setAttribute("y", String(box.y - paddingY));
+        rect.setAttribute("width", String(box.width + paddingX * 2));
+        rect.setAttribute("height", String(box.height + paddingY * 2));
+      }
+    };
+
+requestAnimationFrame(updateEdgeLabelBackgrounds);
+
+document.fonts.ready.then(() => {
+  updateEdgeLabelBackgrounds();
+});
+    
     const enableInteraction = container.dataset.enableInteraction !== "false";
 
     const minZoom = parseFloat(container.dataset.minZoom ?? "") || 0.1;
