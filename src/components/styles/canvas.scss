@@ -334,8 +334,9 @@
 }
 
 .canvas-edge-label-bg {
-  fill: var(--highlight);
-  stroke: var(--secondary);
+  fill: var(--light);
+  fill-opacity: 1;
+  stroke: var(--lightgray);
   stroke-width: 1px;
 }
 
